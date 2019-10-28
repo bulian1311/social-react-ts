@@ -1,12 +1,22 @@
 {
-  "test": [
+  "activities": [
     {
       "id": 1,
-      "name": "qwerty"
+      "title": "qwerty",
+      "category": "drink",
+      "city": "Moscow",
+      "description": "qqqqqqq wwwwwwww rrrrrrr",
+      "venue": "Pub",
+      "date": "13.11.1987"
     },
     {
       "id": 2,
-      "name": "asdfgh"
+      "title": "asdfgh",
+      "category": "drink",
+      "city": "Moscow",
+      "description": "qqqqqqq wwwwwwww rrrrrrr",
+      "venue": "Pub",
+      "date": "13.11.1987"
     }
   ]
 }

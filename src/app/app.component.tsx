@@ -1,29 +1,36 @@
 import React from 'react';
 import axios from 'axios';
-import { Header, Icon, List } from 'semantic-ui-react';
+import { Container } from 'semantic-ui-react';
+import Navbar from '../components/navbar';
+import ActivityDashboard from '../components/activity-dashboard';
+
+import IActyvity from '../models/activity';
 
 const App: React.FC = () => {
-  const [items, setItems] = React.useState<any>([]);
+  const [activities, setActivities] = React.useState<IActyvity[]>([]);
+  const [selectedActivity, setSelectedActivity] = React.useState<IActyvity | null>(null);
+
+  const handleSelectActyvity = (id: string) => {
+    const activity = activities.filter(act => id === act.id)[0];
+    setSelectedActivity(activity);
+  }
 
   React.useEffect(() => {
-    axios.get('http://localhost:3030/test')
-      .then(res => setItems(res.data));
-  });
+    axios.get<IActyvity[]>('http://localhost:3030/activities')
+      .then(res => setActivities(res.data));
+  }, []);
 
   return (
-    <div className="App">
-      <Header as='h2'>
-        <Icon name='users' />
-        <Header.Content>Social app</Header.Content>
-        <List>
-          {
-            items.map(
-              (item: any) => <List.Item key={item.id}>{item.name}</List.Item>
-            )
-          }
-        </List>
-      </Header>
-    </div>
+    <React.Fragment>
+      <Navbar />
+      <Container style={{ marginTop: '7em' }}>
+        <ActivityDashboard
+          activities={activities}
+          selectActivity={handleSelectActyvity}
+          selectedActivity={selectedActivity}
+        />
+      </Container>
+    </React.Fragment>
   );
 }
 
