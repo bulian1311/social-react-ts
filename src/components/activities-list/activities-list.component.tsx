@@ -1,14 +1,15 @@
 import React from 'react';
 import { Item, Button, Label, Segment } from 'semantic-ui-react';
 
-import IActivity from '../../models/activity';
+import { IActivity } from '../../models/activity';
 
 interface IProps {
   activities: IActivity[],
-  selectActivity: (id: string) => void
+  selectActivity: (id: string) => void,
+  handleDeleteActivity: (id: string) => void
 };
 
-const ActivitiesList = ({ activities, selectActivity }: IProps) => {
+const ActivitiesList = ({ activities, selectActivity, handleDeleteActivity }: IProps) => {
   return (
     <Segment clearing style={{ background: 'grey' }}>
       <Item.Group divided>
@@ -28,6 +29,12 @@ const ActivitiesList = ({ activities, selectActivity }: IProps) => {
                     floated="right"
                     content="Посмотреть"
                     color="black"
+                  />
+                  <Button
+                    onClick={() => handleDeleteActivity(activity.id)}
+                    floated="right"
+                    content="Удалить"
+                    color="red"
                   />
                   <Label basic content={activity.category} />
                 </Item.Extra>

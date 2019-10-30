@@ -4,30 +4,59 @@ import { Container } from 'semantic-ui-react';
 import Navbar from '../components/navbar';
 import ActivityDashboard from '../components/activity-dashboard';
 
-import IActyvity from '../models/activity';
+import { IActivity } from '../models/activity';
 
 const App: React.FC = () => {
-  const [activities, setActivities] = React.useState<IActyvity[]>([]);
-  const [selectedActivity, setSelectedActivity] = React.useState<IActyvity | null>(null);
+  const [activities, setActivities] = React.useState<IActivity[]>([]);
+  const [selectedActivity, setSelectedActivity] = React.useState<IActivity | null>(null);
+  const [editMode, setEditMode] = React.useState<boolean>(false);
+
+  React.useEffect(() => {
+    axios.get<IActivity[]>('http://localhost:3030/activities')
+      .then(res => setActivities(res.data));
+  }, []);
 
   const handleSelectActyvity = (id: string) => {
     const activity = activities.filter(act => id === act.id)[0];
     setSelectedActivity(activity);
+    setEditMode(false);
   }
 
-  React.useEffect(() => {
-    axios.get<IActyvity[]>('http://localhost:3030/activities')
-      .then(res => setActivities(res.data));
-  }, []);
+  const handleOpenCreateForm = () => {
+    setSelectedActivity(null);
+    setEditMode(true);
+  };
+
+  const handleCreateActivity = (activity: IActivity) => {
+    setActivities([...activities, activity]);
+    setSelectedActivity(activity);
+    setEditMode(false);
+  };
+
+  const handleEditActivity = (activity: IActivity) => {
+    setActivities([...activities.filter(a => a.id !== activity.id), activity]);
+    setSelectedActivity(activity);
+    setEditMode(false);
+  };
+
+  const handleDeleteActivity = (id: string) => {
+    setActivities([...activities.filter(a => a.id !== id)]);
+  };
 
   return (
     <React.Fragment>
-      <Navbar />
+      <Navbar handleOpenCreateForm={handleOpenCreateForm} />
       <Container style={{ marginTop: '7em' }}>
         <ActivityDashboard
           activities={activities}
           selectActivity={handleSelectActyvity}
           selectedActivity={selectedActivity}
+          editMode={editMode}
+          setEditMode={setEditMode}
+          setSelectedActivity={setSelectedActivity}
+          handleCreateActivity={handleCreateActivity}
+          handleEditActivity={handleEditActivity}
+          handleDeleteActivity={handleDeleteActivity}
         />
       </Container>
     </React.Fragment>

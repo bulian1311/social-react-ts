@@ -1,13 +1,15 @@
 import React from 'react';
 import { Card, Button, Segment } from 'semantic-ui-react';
 
-import IActivity from '../../models/activity';
+import { IActivity } from '../../models/activity';
 
 interface IProps {
-  selectedActivity: IActivity
+  selectedActivity: IActivity,
+  setEditMode: (edit: boolean) => void,
+  setSelectedActivity: (a: IActivity | null) => void
 }
 
-const ActivityDetails = ({ selectedActivity }: IProps) => {
+const ActivityDetails = ({ selectedActivity, setEditMode, setSelectedActivity }: IProps) => {
   return (
     <Segment style={{ backgroundColor: 'grey' }}>
       <Card fluid color="grey" style={{ backgroundColor: "grey" }}>
@@ -22,8 +24,8 @@ const ActivityDetails = ({ selectedActivity }: IProps) => {
         </Card.Content>
         <Card.Content extra>
           <Button.Group widths={2}>
-            <Button content="Изменить" color="black" />
-            <Button content="Удалить" color="red" />
+            <Button onClick={() => setEditMode(true)} content="Изменить" color="black" />
+            <Button onClick={() => setSelectedActivity(null)} content="Отмена" color="red" />
           </Button.Group>
         </Card.Content>
       </Card>
