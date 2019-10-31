@@ -6,10 +6,12 @@ import { IActivity } from '../../models/activity';
 interface IProps {
   activities: IActivity[],
   selectActivity: (id: string) => void,
-  handleDeleteActivity: (id: string) => void
+  handleDeleteActivity: (e: React.SyntheticEvent<HTMLButtonElement>, id: string) => void,
+  submiting: boolean,
+  target: string
 };
 
-const ActivitiesList = ({ activities, selectActivity, handleDeleteActivity }: IProps) => {
+const ActivitiesList = ({ target, activities, selectActivity, handleDeleteActivity, submiting }: IProps) => {
   return (
     <Segment clearing style={{ background: 'grey' }}>
       <Item.Group divided>
@@ -31,7 +33,9 @@ const ActivitiesList = ({ activities, selectActivity, handleDeleteActivity }: IP
                     color="black"
                   />
                   <Button
-                    onClick={() => handleDeleteActivity(activity.id)}
+                    name={activity.id}
+                    loading={target === activity.id && submiting}
+                    onClick={(e) => handleDeleteActivity(e, activity.id)}
                     floated="right"
                     content="Удалить"
                     color="red"

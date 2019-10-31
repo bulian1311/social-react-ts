@@ -15,7 +15,9 @@ interface IProps {
   setSelectedActivity: (a: IActivity | null) => void
   handleEditActivity: (a: IActivity) => void
   handleCreateActivity: (a: IActivity) => void
-  handleDeleteActivity: (id: string) => void
+  handleDeleteActivity: (e: React.SyntheticEvent<HTMLButtonElement>, id: string) => void
+  submiting: boolean,
+  target: string
 };
 
 const ActivityDashboard = ({
@@ -27,7 +29,9 @@ const ActivityDashboard = ({
   setSelectedActivity,
   handleCreateActivity,
   handleEditActivity,
-  handleDeleteActivity
+  handleDeleteActivity,
+  submiting,
+  target
 }: IProps) => {
   return (
     <Grid>
@@ -36,6 +40,8 @@ const ActivityDashboard = ({
           activities={activities}
           selectActivity={selectActivity}
           handleDeleteActivity={handleDeleteActivity}
+          submiting={submiting}
+          target={target}
         />
       </Grid.Column>
       <Grid.Column width={6}>
@@ -55,6 +61,7 @@ const ActivityDashboard = ({
             setEditMode={setEditMode}
             handleCreateActivity={handleCreateActivity}
             handleEditActivity={handleEditActivity}
+            submiting={submiting}
           />
         }
       </Grid.Column>

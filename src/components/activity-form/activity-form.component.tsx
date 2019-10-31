@@ -7,14 +7,16 @@ interface IProps {
   setEditMode: (edit: boolean) => void,
   selectedActivity: IActivity | null,
   handleEditActivity: (a: IActivity) => void,
-  handleCreateActivity: (a: IActivity) => void
+  handleCreateActivity: (a: IActivity) => void,
+  submiting: boolean
 }
 
 const ActivityForm = ({
   setEditMode,
   selectedActivity,
   handleEditActivity,
-  handleCreateActivity
+  handleCreateActivity,
+  submiting
 }: IProps) => {
   const initializeForm = (): IActivity => {
     if (selectedActivity) {
@@ -92,7 +94,7 @@ const ActivityForm = ({
           placeholder="Место"
           value={activity.venue}
         />
-        <Button positive floated="right" type="submit" content="Отправить" />
+        <Button loading={submiting} positive floated="right" type="submit" content="Отправить" />
         <Button onClick={() => setEditMode(false)} floated="right" type="button" content="Отменить" />
       </Form>
     </Segment>
