@@ -1,72 +1,31 @@
 import React from 'react';
+import { observer } from 'mobx-react-lite';
 import { Grid } from 'semantic-ui-react';
+import ActivityStore from '../../stores/activity.store';
 import ActivitiesList from '../activities-list';
 import ActivityDetails from '../activity-details';
 import ActivityForm from '../activity-form';
 
-import { IActivity } from '../../models/activity';
-
-interface IProps {
-  activities: IActivity[],
-  selectActivity: (id: string) => void,
-  selectedActivity: IActivity | null,
-  editMode: boolean,
-  setEditMode: (edit: boolean) => void
-  setSelectedActivity: (a: IActivity | null) => void
-  handleEditActivity: (a: IActivity) => void
-  handleCreateActivity: (a: IActivity) => void
-  handleDeleteActivity: (e: React.SyntheticEvent<HTMLButtonElement>, id: string) => void
-  submiting: boolean,
-  target: string
-};
-
-const ActivityDashboard = ({
-  activities,
-  selectActivity,
-  selectedActivity,
-  editMode,
-  setEditMode,
-  setSelectedActivity,
-  handleCreateActivity,
-  handleEditActivity,
-  handleDeleteActivity,
-  submiting,
-  target
-}: IProps) => {
+const ActivityDashboard = () => {
+  const activityStore = React.useContext(ActivityStore);
+  const { editMode, selectedActivity } = activityStore;
   return (
     <Grid>
       <Grid.Column width={10}>
-        <ActivitiesList
-          activities={activities}
-          selectActivity={selectActivity}
-          handleDeleteActivity={handleDeleteActivity}
-          submiting={submiting}
-          target={target}
-        />
+        <ActivitiesList />
       </Grid.Column>
       <Grid.Column width={6}>
         {
           selectedActivity && !editMode &&
-          <ActivityDetails
-            selectedActivity={selectedActivity}
-            setEditMode={setEditMode}
-            setSelectedActivity={setSelectedActivity}
-          />
+          <ActivityDetails />
         }
         {
           editMode &&
-          <ActivityForm
-            key={Math.random()}
-            selectedActivity={selectedActivity}
-            setEditMode={setEditMode}
-            handleCreateActivity={handleCreateActivity}
-            handleEditActivity={handleEditActivity}
-            submiting={submiting}
-          />
+          <ActivityForm key={Math.random()} />
         }
       </Grid.Column>
     </Grid>
   );
 };
 
-export default ActivityDashboard;
+export default observer(ActivityDashboard);

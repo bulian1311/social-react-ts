@@ -2,21 +2,12 @@
   "activities": [
     {
       "id": 1,
-      "title": "qwerty 1234",
+      "title": "qwerty 123456",
       "category": "drink",
       "city": "Moscow",
       "description": "qqqqqqq wwwwwwww rrrrrrr",
       "venue": "Pub",
       "date": "2019-10-01T11:11"
-    },
-    {
-      "id": "cee42686-8545-406e-8695-12853607a190",
-      "title": "qwertydfg",
-      "category": "cvvvv",
-      "description": "zxzxz",
-      "date": "2019-10-05T11:11",
-      "city": "сссссс",
-      "venue": "xcvPub"
     }
   ]
 }

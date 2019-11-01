@@ -2,22 +2,13 @@ import React from 'react';
 import { v4 as uuid } from 'uuid';
 import { Segment, Form, Button } from 'semantic-ui-react';
 import { IActivity } from '../../models/activity';
+import ActivityStore from '../../stores/activity.store';
+import { observer } from 'mobx-react-lite';
 
-interface IProps {
-  setEditMode: (edit: boolean) => void,
-  selectedActivity: IActivity | null,
-  handleEditActivity: (a: IActivity) => void,
-  handleCreateActivity: (a: IActivity) => void,
-  submiting: boolean
-}
+const ActivityForm = () => {
+  const activityStore = React.useContext(ActivityStore);
+  const { selectedActivity, createActivity, editActivity, submiting, cancelOpenForm } = activityStore;
 
-const ActivityForm = ({
-  setEditMode,
-  selectedActivity,
-  handleEditActivity,
-  handleCreateActivity,
-  submiting
-}: IProps) => {
   const initializeForm = (): IActivity => {
     if (selectedActivity) {
       return selectedActivity;
@@ -42,9 +33,9 @@ const ActivityForm = ({
         ...activity,
         id: uuid()
       }
-      handleCreateActivity(newActivity);
+      createActivity(newActivity);
     } else {
-      handleEditActivity(activity);
+      editActivity(activity);
     }
   };
 
@@ -95,10 +86,10 @@ const ActivityForm = ({
           value={activity.venue}
         />
         <Button loading={submiting} positive floated="right" type="submit" content="Отправить" />
-        <Button onClick={() => setEditMode(false)} floated="right" type="button" content="Отменить" />
+        <Button onClick={() => cancelOpenForm()} floated="right" type="button" content="Отменить" />
       </Form>
     </Segment>
   );
 };
 
-export default ActivityForm;
+export default observer(ActivityForm);
