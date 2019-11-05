@@ -62,7 +62,7 @@ const ActivityForm: React.FC<RouteComponentProps<DetailParams>> = ({
   return (
     <Grid>
       <Grid.Column width={10}>
-        <Segment>
+        <Segment clearing>
           <Form onSubmit={handleSubmit}>
             <Form.Input
               onChange={handleFormElementChange}

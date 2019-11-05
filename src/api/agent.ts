@@ -1,7 +1,24 @@
 import axios, { AxiosResponse } from 'axios';
 import { IActivity } from '../models/activity';
+import { toast } from 'react-toastify';
+import { history } from '..';
 
 axios.defaults.baseURL = 'http://localhost:3030';
+
+axios.interceptors.response.use(undefined, error => {
+  const { status } = error.response;
+  if (status === 404 || status === 400) {
+    history.push('/notfound');
+  }
+
+  if (status === 500) {
+    toast.error('Ошибка на сервере.');
+  }
+
+  if (error.message === "Network Error") {
+    toast.error("Ошибка сети.");
+  }
+});
 
 const responseBody = (res: AxiosResponse) => res.data;
 
