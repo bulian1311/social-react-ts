@@ -4,44 +4,59 @@ import { Segment, Form, Button } from 'semantic-ui-react';
 import { IActivity } from '../../models/activity';
 import ActivityStore from '../../stores/activity.store';
 import { observer } from 'mobx-react-lite';
+import { RouteComponentProps } from 'react-router';
 
-const ActivityForm = () => {
+interface DetailParams {
+  id: string
+};
+
+const ActivityForm: React.FC<RouteComponentProps<DetailParams>> = ({
+  match,
+  history
+}) => {
   const activityStore = React.useContext(ActivityStore);
-  const { selectedActivity, createActivity, editActivity, submiting, cancelOpenForm } = activityStore;
+  const {
+    activity,
+    createActivity,
+    editActivity,
+    submiting,
+    loadActivity,
+    clearActivity
+  } = activityStore;
 
-  const initializeForm = (): IActivity => {
-    if (selectedActivity) {
-      return selectedActivity;
-    } else {
-      return {
-        id: '',
-        title: '',
-        category: '',
-        description: '',
-        date: '',
-        city: '',
-        venue: ''
-      }
+  const [selectedActivity, setSelectedActivity] = React.useState<IActivity>({
+    id: '',
+    title: '',
+    category: '',
+    description: '',
+    date: '',
+    city: '',
+    venue: ''
+  });
+
+  React.useEffect(() => {
+    if (match.params.id && selectedActivity.id.length === 0) {
+      loadActivity(match.params.id)
+        .then(() => activity && setSelectedActivity(activity));
     }
-  };
-
-  const [activity, setActivity] = React.useState<IActivity>(initializeForm());
+    return () => clearActivity();
+  }, [match.params.id, loadActivity, clearActivity, activity, selectedActivity.id.length]);
 
   const handleSubmit = () => {
-    if (activity.id.length === 0) {
+    if (selectedActivity.id.length === 0) {
       let newActivity = {
-        ...activity,
+        ...selectedActivity,
         id: uuid()
       }
-      createActivity(newActivity);
+      createActivity(newActivity).then(() => history.push(`/activities/${newActivity.id}`));
     } else {
-      editActivity(activity);
+      editActivity(selectedActivity).then(() => history.push(`/activities/${selectedActivity.id}`));
     }
   };
 
   const handleFormElementChange = (e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.currentTarget;
-    setActivity({ ...activity, [name]: value });
+    setSelectedActivity({ ...selectedActivity, [name]: value });
   }
 
   return (
@@ -51,42 +66,42 @@ const ActivityForm = () => {
           onChange={handleFormElementChange}
           name="title"
           placeholder="Заголовок"
-          value={activity.title}
+          value={selectedActivity.title}
         />
         <Form.TextArea
           onChange={handleFormElementChange}
           name="description"
           rows={2}
           placeholder="Описание"
-          value={activity.description}
+          value={selectedActivity.description}
         />
         <Form.Input
           onChange={handleFormElementChange}
           name="category"
           placeholder="Категория"
-          value={activity.category}
+          value={selectedActivity.category}
         />
         <Form.Input
           onChange={handleFormElementChange}
           name="date"
           type="datetime-local"
           placeholder="Дата"
-          value={activity.date}
+          value={selectedActivity.date}
         />
         <Form.Input
           onChange={handleFormElementChange}
           name="city"
           placeholder="Город"
-          value={activity.city}
+          value={selectedActivity.city}
         />
         <Form.Input
           onChange={handleFormElementChange}
           name="venue"
           placeholder="Место"
-          value={activity.venue}
+          value={selectedActivity.venue}
         />
         <Button loading={submiting} positive floated="right" type="submit" content="Отправить" />
-        <Button onClick={() => cancelOpenForm()} floated="right" type="button" content="Отменить" />
+        <Button onClick={() => history.push('/activities')} floated="right" type="button" content="Отменить" />
       </Form>
     </Segment>
   );

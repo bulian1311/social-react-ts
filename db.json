@@ -1,13 +1,22 @@
 {
   "activities": [
     {
-      "id": 1,
-      "title": "qwerty 123456",
-      "category": "drink",
-      "city": "Moscow",
-      "description": "qqqqqqq wwwwwwww rrrrrrr",
-      "venue": "Pub",
-      "date": "2019-10-01T11:11"
+      "id": "0e4d1dfe-b6cf-4e8a-89ff-ceaa56848abe",
+      "title": "qqqqqq",
+      "category": "qqqq",
+      "description": "qqqqq",
+      "date": "2019-10-30T11:11",
+      "city": "qqqq",
+      "venue": "qqqq"
+    },
+    {
+      "id": "ec64919e-9e07-4698-b5f5-1d47451db34b",
+      "title": "123456",
+      "category": "123",
+      "description": "123",
+      "date": "2019-11-09T11:11",
+      "city": "111",
+      "venue": "111"
     }
   ]
 }

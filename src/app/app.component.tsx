@@ -2,27 +2,28 @@ import React from 'react';
 import { observer } from 'mobx-react-lite';
 import { Container } from 'semantic-ui-react';
 import Navbar from '../components/navbar';
-import Loader from '../components/loader';
 import ActivityDashboard from '../components/activity-dashboard';
-import ActivityStore from '../stores/activity.store';
+import { Route, withRouter, RouteComponentProps } from 'react-router-dom';
+import Home from '../pages';
+import ActivityForm from '../components/activity-form';
+import ActivityDetails from '../components/activity-details';
 
-const App: React.FC = () => {
-  const activitiStore = React.useContext(ActivityStore);
-
-  React.useEffect(() => {
-    activitiStore.loadActivities();
-  }, [activitiStore]);
-
-  if (activitiStore.loadingInitial) return <Loader content="Загрузка" />
-
+const App: React.FC<RouteComponentProps> = ({ location }) => {
   return (
     <React.Fragment>
-      <Navbar />
-      <Container style={{ marginTop: '7em' }}>
-        <ActivityDashboard />
-      </Container>
+      <Route exact path="/" component={Home} />
+      <Route path="/(.+)" render={() => (
+        <React.Fragment>
+          <Navbar />
+          <Container style={{ marginTop: '7em' }}>
+            <Route exact path="/activities" component={ActivityDashboard} />
+            <Route path="/activities/:id" component={ActivityDetails} />
+            <Route key={location.key} path={["/create", "/edit/:id"]} component={ActivityForm} />
+          </Container>
+        </React.Fragment>
+      )} />
     </React.Fragment>
   );
 }
 
-export default observer(App);
+export default withRouter(observer(App));

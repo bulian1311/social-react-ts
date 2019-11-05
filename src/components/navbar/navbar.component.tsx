@@ -1,21 +1,22 @@
 import React from 'react';
-import ActivityStore from '../../stores/activity.store';
 import { observer } from 'mobx-react-lite';
 import { Menu, Container, Button } from 'semantic-ui-react';
+import { NavLink } from 'react-router-dom';
 
 const Navbar = () => {
-  const activityStore = React.useContext(ActivityStore);
   return (
     <Menu color="grey" fixed="top" inverted>
       <Container>
-        <Menu.Item header>
+        <Menu.Item header as={NavLink} exact to="/">
           Social app
         </Menu.Item>
         <Menu.Item
-          name='сообщения'
+          as={NavLink}
+          to="/activities"
+          name='Посты'
         />
-        <Menu.Item>
-          <Button onClick={activityStore.openCreateForm} content="Добавить" />
+        <Menu.Item as={NavLink} to="/create">
+          <Button content="Добавить" />
         </Menu.Item>
       </Container>
     </Menu>

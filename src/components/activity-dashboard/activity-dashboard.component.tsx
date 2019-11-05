@@ -1,28 +1,28 @@
 import React from 'react';
 import { observer } from 'mobx-react-lite';
 import { Grid } from 'semantic-ui-react';
-import ActivityStore from '../../stores/activity.store';
 import ActivitiesList from '../activities-list';
-import ActivityDetails from '../activity-details';
-import ActivityForm from '../activity-form';
+import ActivityStore from '../../stores/activity.store';
+import Loader from '../loader';
 
 const ActivityDashboard = () => {
   const activityStore = React.useContext(ActivityStore);
-  const { editMode, selectedActivity } = activityStore;
+
+  React.useEffect(() => {
+    if (activityStore.activityRegistry.size === 0) {
+      activityStore.loadActivities();
+    }
+  }, [activityStore]);
+
+  if (activityStore.loadingInitial) return <Loader content="Загрузка" />
+
   return (
     <Grid>
       <Grid.Column width={10}>
         <ActivitiesList />
       </Grid.Column>
       <Grid.Column width={6}>
-        {
-          selectedActivity && !editMode &&
-          <ActivityDetails />
-        }
-        {
-          editMode &&
-          <ActivityForm key={Math.random()} />
-        }
+        <h2>Filters</h2>
       </Grid.Column>
     </Grid>
   );
