@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 
 const Navbar = () => {
   return (
-    <Menu color="grey" fixed="top" inverted>
+    <Menu color="blue" fixed="top" inverted>
       <Container>
         <Menu.Item header as={NavLink} exact to="/">
           Social app

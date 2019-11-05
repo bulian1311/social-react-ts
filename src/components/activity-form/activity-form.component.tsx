@@ -1,6 +1,6 @@
 import React from 'react';
 import { v4 as uuid } from 'uuid';
-import { Segment, Form, Button } from 'semantic-ui-react';
+import { Segment, Form, Button, Grid } from 'semantic-ui-react';
 import { IActivity } from '../../models/activity';
 import ActivityStore from '../../stores/activity.store';
 import { observer } from 'mobx-react-lite';
@@ -60,50 +60,54 @@ const ActivityForm: React.FC<RouteComponentProps<DetailParams>> = ({
   }
 
   return (
-    <Segment clearing style={{ backgroundColor: 'grey' }}>
-      <Form onSubmit={handleSubmit}>
-        <Form.Input
-          onChange={handleFormElementChange}
-          name="title"
-          placeholder="Заголовок"
-          value={selectedActivity.title}
-        />
-        <Form.TextArea
-          onChange={handleFormElementChange}
-          name="description"
-          rows={2}
-          placeholder="Описание"
-          value={selectedActivity.description}
-        />
-        <Form.Input
-          onChange={handleFormElementChange}
-          name="category"
-          placeholder="Категория"
-          value={selectedActivity.category}
-        />
-        <Form.Input
-          onChange={handleFormElementChange}
-          name="date"
-          type="datetime-local"
-          placeholder="Дата"
-          value={selectedActivity.date}
-        />
-        <Form.Input
-          onChange={handleFormElementChange}
-          name="city"
-          placeholder="Город"
-          value={selectedActivity.city}
-        />
-        <Form.Input
-          onChange={handleFormElementChange}
-          name="venue"
-          placeholder="Место"
-          value={selectedActivity.venue}
-        />
-        <Button loading={submiting} positive floated="right" type="submit" content="Отправить" />
-        <Button onClick={() => history.push('/activities')} floated="right" type="button" content="Отменить" />
-      </Form>
-    </Segment>
+    <Grid>
+      <Grid.Column width={10}>
+        <Segment>
+          <Form onSubmit={handleSubmit}>
+            <Form.Input
+              onChange={handleFormElementChange}
+              name="title"
+              placeholder="Заголовок"
+              value={selectedActivity.title}
+            />
+            <Form.TextArea
+              onChange={handleFormElementChange}
+              name="description"
+              rows={2}
+              placeholder="Описание"
+              value={selectedActivity.description}
+            />
+            <Form.Input
+              onChange={handleFormElementChange}
+              name="category"
+              placeholder="Категория"
+              value={selectedActivity.category}
+            />
+            <Form.Input
+              onChange={handleFormElementChange}
+              name="date"
+              type="datetime-local"
+              placeholder="Дата"
+              value={selectedActivity.date}
+            />
+            <Form.Input
+              onChange={handleFormElementChange}
+              name="city"
+              placeholder="Город"
+              value={selectedActivity.city}
+            />
+            <Form.Input
+              onChange={handleFormElementChange}
+              name="venue"
+              placeholder="Место"
+              value={selectedActivity.venue}
+            />
+            <Button loading={submiting} positive floated="right" type="submit" content="Отправить" />
+            <Button onClick={() => history.push('/activities')} floated="right" type="button" content="Отменить" />
+          </Form>
+        </Segment>
+      </Grid.Column>
+    </Grid>
   );
 };
 

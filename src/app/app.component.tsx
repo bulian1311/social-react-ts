@@ -4,9 +4,9 @@ import { Container } from 'semantic-ui-react';
 import Navbar from '../components/navbar';
 import ActivityDashboard from '../components/activity-dashboard';
 import { Route, withRouter, RouteComponentProps } from 'react-router-dom';
-import Home from '../pages';
+import Home from '../pages/home';
 import ActivityForm from '../components/activity-form';
-import ActivityDetails from '../components/activity-details';
+import ActivityDetails from '../pages/activity-details';
 
 const App: React.FC<RouteComponentProps> = ({ location }) => {
   return (
