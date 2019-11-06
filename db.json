@@ -17,6 +17,51 @@
       "date": "2019-11-09T11:11",
       "city": "111",
       "venue": "111"
+    },
+    {
+      "id": "c241bc02-026e-4186-9615-5b2846487df8",
+      "title": "qwertydfg111111111",
+      "category": "drink",
+      "description": "ячсячс",
+      "date": null,
+      "city": "ячсяс",
+      "venue": "ячсяс"
+    },
+    {
+      "id": "93f62d08-d3ab-4a16-a339-af6cf7a29681",
+      "title": "zzzzzzzzzzz",
+      "category": "drink",
+      "description": "zzzzzzzzzzzzz",
+      "date": null,
+      "city": "zzzzzzzz",
+      "venue": "zzzzzzzz"
+    },
+    {
+      "id": "413d37fc-e9ed-4d35-ae8e-1e14a8c0d0d8",
+      "title": "ЯЯЯЯЯЯЯЯЯ",
+      "category": "drink",
+      "description": "сччмч",
+      "date": null,
+      "city": "яяяяяяяяя",
+      "venue": "яяяяяяяяя"
+    },
+    {
+      "id": "48df19bd-71ee-4577-a3f6-07e07830c315",
+      "title": "qwertydfg",
+      "category": "drink",
+      "description": "йцуукуе",
+      "date": null,
+      "city": "йцуйк",
+      "venue": "йцуйкуц"
+    },
+    {
+      "id": "efd23770-a0dc-4df0-a150-f5558801cdac",
+      "title": "ЯЯЯЯЯЯЯЯЯ",
+      "category": "drink",
+      "description": "я",
+      "date": null,
+      "city": "я",
+      "venue": "я"
     }
   ]
 }
