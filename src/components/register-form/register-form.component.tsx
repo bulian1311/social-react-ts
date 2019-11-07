@@ -7,22 +7,21 @@ import { IUserFormValues } from '../../models/user';
 import { FORM_ERROR } from 'final-form';
 import ErrorMessage from '../error-message';
 
-const LoginForm = () => {
+const RegisterForm = () => {
   const rootStore = React.useContext(RootStoreContext);
-  const { login } = rootStore.userStore;
+  const { register } = rootStore.userStore;
 
   const handleSubmit = (values: IUserFormValues) => {
-    login(values).catch(error => ({
+    register(values).catch(error => ({
       [FORM_ERROR]: error
     }));
   };
-
   return (
     <FinalForm
       onSubmit={handleSubmit}
       render={({ handleSubmit, submitting, submitError }) => (
         <Form onSubmit={handleSubmit} error>
-          <h3>Войти</h3>
+          <h3>Регистрация</h3>
           <Field
             name="email"
             component={TextInput}
@@ -38,14 +37,14 @@ const LoginForm = () => {
           <Button
             loading={submitting}
             positive
-            content="Войти"
+            content="Зарегестрироваться"
           />
           <br />
           {submitError && <ErrorMessage error={submitError} text="Неверный email или пароль" />}
         </Form>
       )}
     />
-  )
-}
+  );
+};
 
-export default LoginForm
+export default RegisterForm;

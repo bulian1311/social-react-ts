@@ -9,11 +9,13 @@ import ActivityForm from '../components/activity-form';
 import ActivityDetails from '../pages/activity-details';
 import LoginForm from '../components/login-form';
 import NotFound from '../pages/not-found';
+import Modal from '../components/modal';
 import { ToastContainer } from 'react-toastify';
 
 const App: React.FC<RouteComponentProps> = ({ location }) => {
   return (
     <React.Fragment>
+      <Modal />
       <ToastContainer position="bottom-right" />
       <Route exact path="/" component={Home} />
       <Route path="/(.+)" render={() => (

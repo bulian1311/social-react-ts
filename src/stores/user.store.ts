@@ -22,6 +22,22 @@ class UserStore {
         this.user = { token: res.accessToken, email: values.email };
       });
       this.rootStore.commonStore.setToken(res.accessToken);
+      this.rootStore.modalStore.closeModal();
+      history.push('/activities');
+    }
+    catch (err) {
+      throw err;
+    }
+  };
+
+  @action register = async (values: IUserFormValues) => {
+    try {
+      const res = await agent.User.register(values);
+      runInAction(() => {
+        this.user = { token: res.accessToken, email: values.email };
+      });
+      this.rootStore.commonStore.setToken(res.accessToken);
+      this.rootStore.modalStore.closeModal();
       history.push('/activities');
     }
     catch (err) {

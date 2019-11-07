@@ -4,6 +4,11 @@
       "email": "nikolay1311@mail.ru",
       "password": "$2a$10$i2MvmFC2ZzE5VYyFyCcwq.qGjfEG.ujtbYd.MyWBdZ704vb5TC6AO",
       "id": 1
+    },
+    {
+      "email": "nikolay1311@yandex.ru",
+      "password": "$2a$10$aQTsdGBCgnQD26TEcz/zOORBluTRDE6XtaDe68P.zKIUz60P/JolW",
+      "id": 2
     }
   ],
   "activities": [
