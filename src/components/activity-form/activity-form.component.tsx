@@ -2,7 +2,7 @@ import React from 'react';
 import { v4 as uuid } from 'uuid';
 import { Segment, Form, Button, Grid } from 'semantic-ui-react';
 import { ActivityFormValues } from '../../models/activity';
-import ActivityStore from '../../stores/activity.store';
+import { RootStoreContext } from '../../stores/root.store';
 import { observer } from 'mobx-react-lite';
 import { RouteComponentProps } from 'react-router';
 import { Form as FinalForm, Field } from 'react-final-form';
@@ -18,13 +18,13 @@ const ActivityForm: React.FC<RouteComponentProps<DetailParams>> = ({
   match,
   history
 }) => {
-  const activityStore = React.useContext(ActivityStore);
+  const rootStore = React.useContext(RootStoreContext);
   const {
     createActivity,
     editActivity,
     submiting,
     loadActivity
-  } = activityStore;
+  } = rootStore.activityStore;
 
   const [selectedActivity, setSelectedActivity] = React.useState(new ActivityFormValues());
 

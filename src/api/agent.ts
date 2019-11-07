@@ -1,13 +1,22 @@
 import axios, { AxiosResponse } from 'axios';
 import { IActivity } from '../models/activity';
+import { IUser, IUserFormValues } from '../models/user';
 import { toast } from 'react-toastify';
 import { history } from '..';
 
 axios.defaults.baseURL = 'http://localhost:3030';
 
+axios.interceptors.request.use(config => {
+  const token = window.localStorage.getItem('jwt');
+  if (token && token.length > 0) {
+    config.headers.Authorization = `Bearer ${token}`;
+  };
+  return config;
+}, error => Promise.reject(error));
+
 axios.interceptors.response.use(undefined, error => {
   const { status } = error.response;
-  if (status === 404 || status === 400) {
+  if (status === 404) {
     history.push('/notfound');
   }
 
@@ -18,6 +27,8 @@ axios.interceptors.response.use(undefined, error => {
   if (error.message === "Network Error") {
     toast.error("Ошибка сети.");
   }
+
+  throw error.response;
 });
 
 const responseBody = (res: AxiosResponse) => res.data;
@@ -40,6 +51,13 @@ const Activities = {
   delete: (id: string) => requests.delete(`/activities/${id}`),
 };
 
+const User = {
+  current: (): Promise<IUser> => requests.get('/user'),
+  login: (user: IUserFormValues): Promise<{ accessToken: string }> => requests.post('/signin', user),
+  register: (user: IUserFormValues): Promise<{ accessToken: string }> => requests.post('/register', user)
+};
+
 export default {
-  Activities
+  Activities,
+  User
 };

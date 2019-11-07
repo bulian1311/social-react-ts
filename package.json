@@ -29,7 +29,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "json:server": "json-server --watch db.json --port 3030",
+    "json:server": "json-server --watch db.json --port 3030 -m ./node_modules/json-server-auth",
+    "json:server-auth": "json-server-auth db.json",
     "linux:start": "CHOKIDAR_USEPOLLING=true react-scripts start"
   },
   "eslintConfig": {
@@ -51,6 +52,7 @@
     "@types/react-router-dom": "^5.1.2",
     "@types/react-widgets": "^4.3.3",
     "@types/uuid": "^3.4.5",
-    "json-server": "^0.15.1"
+    "json-server": "^0.15.1",
+    "json-server-auth": "^1.2.1"
   }
 }

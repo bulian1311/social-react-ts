@@ -1,4 +1,11 @@
 {
+  "users": [
+    {
+      "email": "nikolay1311@mail.ru",
+      "password": "$2a$10$i2MvmFC2ZzE5VYyFyCcwq.qGjfEG.ujtbYd.MyWBdZ704vb5TC6AO",
+      "id": 1
+    }
+  ],
   "activities": [
     {
       "id": "0e4d1dfe-b6cf-4e8a-89ff-ceaa56848abe",

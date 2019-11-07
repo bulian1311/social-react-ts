@@ -1,12 +1,12 @@
 import React from 'react';
 import { observer } from 'mobx-react-lite';
 import { Item, Segment } from 'semantic-ui-react';
-import ActivityStore from '../../stores/activity.store';
 import ActivitiesListItem from '../activities-list-item';
+import { RootStoreContext } from '../../stores/root.store';
 
 const ActivitiesList = () => {
-  const activityStore = React.useContext(ActivityStore);
-  const { activitiesByDate } = activityStore;
+  const rootStore = React.useContext(RootStoreContext);
+  const { activitiesByDate } = rootStore.activityStore;
   return (
     <Segment clearing>
       <Item.Group divided>

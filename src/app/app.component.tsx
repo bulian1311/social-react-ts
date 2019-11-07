@@ -7,6 +7,7 @@ import { Route, Switch, withRouter, RouteComponentProps } from 'react-router-dom
 import Home from '../pages/home';
 import ActivityForm from '../components/activity-form';
 import ActivityDetails from '../pages/activity-details';
+import LoginForm from '../components/login-form';
 import NotFound from '../pages/not-found';
 import { ToastContainer } from 'react-toastify';
 
@@ -23,6 +24,7 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
               <Route exact path="/activities" component={ActivityDashboard} />
               <Route path="/activities/:id" component={ActivityDetails} />
               <Route key={location.key} path={["/create", "/manage/:id"]} component={ActivityForm} />
+              <Route path="/login" component={LoginForm} />
               <Route component={NotFound} />
             </Switch>
           </Container>
